@@ -81,6 +81,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export VISUAL=vim
 export EDITOR="$VISUAL"
+alias vim="nvim"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -110,3 +111,4 @@ export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/bin/virtualenvwrapper.sh
 
+# source "$HOME/.vim/pack/plugins/start/gruvbox/gruvbox_256palette.sh"

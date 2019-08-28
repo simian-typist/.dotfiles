@@ -1,31 +1,71 @@
-source $VIMRUNTIME/defaults.vim
-
 set nocompatible
 
-filetype off
+call plug#begin()
 
+" dev stuff
+Plug 'janko/vim-test'
+Plug 'davidhalter/jedi-vim'
+
+if has('nvim')
+  " python stuff
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'deoplete-plugins/deoplete-jedi'
+  " latex stuff
+  Plug 'donRaphaco/neotex'
+  " dev
+  let test#strategy = "neovim"
+endif
+let g:deoplete#enable_at_startup = 1
+
+Plug 'dense-analysis/ale'
+
+" latex
+Plug 'lervag/vimtex'
+
+" misc
+Plug 'vimwiki/vimwiki'
+Plug 'scrooloose/nerdtree'
+
+" style shiz
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
+
+" unnecessary in neovim
 filetype plugin indent on
+syntax on
+syntax enable
 
-filetype plugin on
 
-filetype indent on
+" prettify
+set termguicolors
+colorscheme gruvbox
+set background=dark
+let g:gruvbox_invert_selection = 0
+let g:airline_powerline_fonts = 1
 
-set runtimepath+=~/.vim/bundle/nerdtree
 
-let g:jedi#rename_command = "<C-t>"
+" ale
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_linters = {'python': ['flake8']}
 
-let g:pymode_python = 'python3'
-let g:pymode_syntax = 1
-let g:pymode_rope = 0
+" vimwiki config
+let g:vimwiki_list = [{'path': '~/dndwiki/', 'syntax': 'markdown', 'ext': '.md'}, {'path': '~/rhys_dnd/', 'syntax': 'markdown', 'ext': '.md'}]
 
+
+" important editor stuff
 set breakindent
 set wrap
 set backspace=indent,eol,start
 set hidden
-
 set tabstop=4
 set shiftwidth=4
 set expandtab
 
-syntax enable
-colorscheme edge
