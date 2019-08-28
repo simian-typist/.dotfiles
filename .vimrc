@@ -59,6 +59,9 @@ let g:airline_powerline_fonts = 1
 " vimwiki config
 let g:vimwiki_list = [{'path': '~/dndwiki/', 'syntax': 'markdown', 'ext': '.md'}, {'path': '~/rhys_dnd/', 'syntax': 'markdown', 'ext': '.md'}]
 
+" latex
+let g:vimtex_view_general_viewer = 'zathura'
+
 
 " important editor stuff
 set breakindent
@@ -68,4 +71,6 @@ set hidden
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set number
+set nohlsearch
 

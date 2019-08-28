@@ -79,9 +79,10 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 alias vim="nvim"
+alias awesome-conf="nvim ~/.config/awesome/rc.lua"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
