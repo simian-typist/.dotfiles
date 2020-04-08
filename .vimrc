@@ -4,16 +4,18 @@ call plug#begin()
 
 " dev stuff
 Plug 'janko/vim-test'
-Plug 'davidhalter/jedi-vim'
 
 if has('nvim')
   " python stuff
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'davidhalter/jedi-vim'
   Plug 'deoplete-plugins/deoplete-jedi'
   " latex stuff
   Plug 'donRaphaco/neotex'
   " dev
   let test#strategy = "neovim"
+else
+  Plug 'davidhalter/jedi-vim'
 endif
 let g:deoplete#enable_at_startup = 1
 
@@ -73,4 +75,3 @@ set shiftwidth=4
 set expandtab
 set number
 set nohlsearch
-
