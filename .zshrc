@@ -10,9 +10,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-alias fcs='fortune | cowsay -f dragon-and-cow'
 alias vim='nvim'
-alias clock='while true; do tput clear; date +"%H : %M : %S" | figlet ; sleep 1; done'
 alias aledit='nvim ~/.aliases'
 alias setaliases='. ~/.aliases'
 alias home='cd ~'
@@ -39,6 +37,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cuda/extras/CUPTI/lib64
 export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 
 export PATH=/usr/local/texlive/2017/bin/x86_64-linux${PATH:+:$PATH}}$
+export PATH="$HOME/.cargo/bin:$PATH"
 
 export MANPATH=/usr/local/texlive/2017/texmf/doc/man${MANPATH:+:$MANPATH}}$
 
@@ -50,3 +49,7 @@ fortune | cowsay -f dragon-and-cow
 # . /home/torch/.virtualenvs/cv/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 setaliases
+
+setxkbmap -layout gb
+
+fpath+=~/.zfunc
