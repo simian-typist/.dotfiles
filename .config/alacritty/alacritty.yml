@@ -1,0 +1,7 @@
+key_bindings:
+  - { key: B, mods: Control|Shift, action: ToggleFullscreen }
+  - { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop,   }
+  - { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
+window:
+  decorations: Full
+  startup_mode: Windowed
