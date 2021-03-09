@@ -1,4 +1,4 @@
-fortune | cowsay -f dragon-and-cow
+# fortune | cowsay -f dragon-and-cow
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -155,6 +155,9 @@ zinit load 'wfxr/forgit'
 # LAZYGIT
 zinit ice lucid wait"0" as"program" from"gh-r" mv"lazygit* -> lazygit" atload"alias lg='lazygit'"
 zinit light 'jesseduffield/lazygit'
+# NEOVIM
+zinit ice from"gh-r" as"program" bpick"*appimage*" ver"stable" mv"nvim* -> nvim" pick"nvim"
+zinit light neovim/neovim
 
 autoload colors && colors
 
