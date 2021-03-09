@@ -2,6 +2,7 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 
 export PATH=/opt/cuda/bin${PATH:+:${PATH}}$
+export PATH=$HOME/.local/bin${PATH:+:${PATH}}$
 export LD_LIBRARY_PATH=/opt/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/cuda/extras/CUPTI/lib64

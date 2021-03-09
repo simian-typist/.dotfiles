@@ -56,6 +56,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man${MANPATH:+:${MANPATH}}
 export BAT_THEME="gruvbox"
 export SHELL="/usr/bin/zsh"
+export TERM="screen-256color"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
