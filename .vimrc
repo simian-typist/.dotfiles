@@ -1,5 +1,5 @@
 set nocompatible
-nmap <Space> <Leader>
+let mapleader = " "
 
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 if !filereadable(vimplug_exists)
@@ -34,12 +34,14 @@ if has('nvim')
   let g:deoplete#enable_at_startup = 1
 endif
 
+Plug 'psf/black', { 'branch': 'stable'}
 Plug 'sheerun/vim-polyglot'
 Plug 'davidhalter/jedi-vim'
 Plug 'dense-analysis/ale'
 Plug 'tmhedberg/SimpylFold'
 Plug 'sirver/ultisnips'
 Plug 'junegunn/goyo.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " latex
 Plug 'lervag/vimtex'
@@ -62,12 +64,16 @@ nnoremap <silent> <leader>f :FZF<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
 nnoremap <silent> <leader>o :NERDTreeToggle<Enter>
 nnoremap <leader>l :NERDTreeFocus<CR>
+nnoremap <leader>b :Black<CR>
 
 " unnecessary in neovim
 filetype plugin indent on
 syntax on
 syntax enable
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+autocmd BufWritePre *.py execute ':Black'
+set smartcase
+set clipboard=unnamedplus
 
 " nerdtree stuff
 let NERDTreeQuitOnOpen = 1
@@ -101,7 +107,7 @@ let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'aut
 
 let g:jedi#completions_enabled = 0
 " vimwiki config
-let g:vimwiki_list = [{'path': '~/cvpr/', 'syntax': 'markdown', 'ext': '.md'}, {'path': '~/rhys_dnd/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'path': '~/dndwiki/', 'syntax': 'markdown', 'ext': '.md'}, {'path': '~/rhys_dnd/', 'syntax': 'markdown', 'ext': '.md'}]
 
 " latex
 let g:vimtex_view_general_viewer = 'zathura'

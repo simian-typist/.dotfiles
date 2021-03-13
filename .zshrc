@@ -11,6 +11,8 @@ alias aledit='nvim ~/.aliases'
 alias setaliases='. ~/.aliases'
 alias home='cd ~'
 alias swploc='$HOME/.local/share/nvim/swap'
+alias tn='tmux new -s'
+alias ta='tmux attach -t'
 
 HISTFILE=${HISTFILE:-$HOME/.zsh_history}
 HISTSIZE=290000
@@ -39,28 +41,22 @@ setopt vi
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 setaliases
 
-# export ANDROID_HOME="/$HOME/tools/android/"
-# export ANDROID_NDK_HOME="$HOME/tools/android/ndk-bundle"
-export ANDROID_HOME="/$HOME/Android/Sdk"
-export ANDROID_NDK_HOME="/$HOME/Android/Sdk/ndk/21.1.6352462"
+# export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
-
-export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$(go env GOPATH)/bin
+# export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+# export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:$(go env GOPATH)/bin
 export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/.cargo/bin
 # export PATH="$ANDROID_HOME/ndk-bundle:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/tools:$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man${MANPATH:+:${MANPATH}}
-export BAT_THEME="gruvbox"
+export BAT_THEME="gruvbox-dark"
 export SHELL="/usr/bin/zsh"
 export TERM="screen-256color"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-setxkbmap -layout gb
+# setxkbmap -layout gb
 
 help(){
     bash -c "help $@"
@@ -107,16 +103,18 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*:descriptions' format '-- %d --'
-zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath' # remember to use single quote here!!!
 zstyle ':completion:complete:*:options' sort false
 zstyle ':fzf-tab:complete:_zlua:*' query-string input
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
-zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
-zstyle ":completion:*:git-checkout:*" sort false
+# zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+# zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview [[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# FZF
-zinit ice lucid wait'0b' from"gh-r" as"program"
-zinit light junegunn/fzf
+# # FZF
+# zinit ice lucid wait'0b' from"gh-r" as"program"
+# zinit light junegunn/fzf
 # FZF BYNARY AND TMUX HELPER SCRIPT
 zinit ice lucid wait'0c' as"command" pick"bin/fzf-tmux"
 zinit light junegunn/fzf
@@ -129,32 +127,32 @@ zinit light Aloxaf/fzf-tab
 # SYNTAX HIGHLIGHTING
 zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"
 zinit light zdharma/fast-syntax-highlighting
-# EXA
-zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
-zinit light ogham/exa
-zinit ice wait blockf atpull'zinit creinstall -q .'
+# # EXA
+# zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+# zinit light ogham/exa
+# zinit ice wait blockf atpull'zinit creinstall -q .'
 # DELTA
 zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"
 zinit light 'dandavison/delta'
-# BAT
-zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"
-zinit light sharkdp/bat
+# # BAT
+# zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"
+# zinit light sharkdp/bat
 # BAT-EXTRAS
 zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid
 zinit ice wait"1" as"program" pick"src/batdiff.sh" lucid
 zinit light eth-p/bat-extras
-alias rg=batgrep.sh
+# alias rg=batgrep.sh
 alias bd=batdiff.sh
 alias man=batman.sh
-# RIPGREP
-zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
-zinit light BurntSushi/ripgrep
+# # RIPGREP
+# zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
+# zinit light BurntSushi/ripgrep
 # FORGIT
 zinit ice wait lucid
 zinit load 'wfxr/forgit'
-# LAZYGIT
-zinit ice lucid wait"0" as"program" from"gh-r" mv"lazygit* -> lazygit" atload"alias lg='lazygit'"
-zinit light 'jesseduffield/lazygit'
+# # LAZYGIT
+# zinit ice lucid wait"0" as"program" from"gh-r" mv"lazygit* -> lazygit" atload"alias lg='lazygit'"
+# zinit light 'jesseduffield/lazygit'
 
 autoload colors && colors
 
@@ -167,21 +165,20 @@ export FZF_DEFAULT_OPTS="
 --info=inline
 --height=50%
 --multi
---preview-window=right:50%
---preview-window=sharp
---preview-window=cycle
---preview '([[ -f {} ]] && (bat --style=numbers --color=always --theme=gruvbox --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
 --prompt='λ -> '
 --pointer='|>'
 --marker='✓'
 --bind 'ctrl-e:execute(nvim {} < /dev/tty > /dev/tty 2>&1)' > selected"
 
+export FORGIT_PAGER='delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}'
+
 # --preview-window=right:50%
 # --preview-window=sharp
 # --preview-window=cycle
-# --preview '([[ -f {} ]] && (bat --style=numbers --color=always --theme=gruvbox --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+# --preview 'bat --style=numbers --color=always --theme=gruvbox-dark --line-range :500 {}'
 
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
